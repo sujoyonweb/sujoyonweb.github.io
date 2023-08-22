@@ -46,7 +46,7 @@ body::-webkit-scrollbar {
     max-width: 700px;
     margin: auto;
     overflow: hidden;
-    transition: 200ms ease all;
+    transition: 100ms ease all;
 }
 .topNavActive {
     height: 250px;
