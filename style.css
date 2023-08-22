@@ -1,144 +1,240 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Mukta&family=Roboto:wght@100&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Mukta&family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Roboto:wght@100&display=swap');
 :root {
     --yellowGreen: rgb(154, 205, 50);
+    --bar-width: 48px;
+    --bar-height: 8px;
+    --hamburger-gap: 5px;
+    --foreground: #333;
+    --background: white;
+    --hamburger-margin: 8px;
+    --animation-timing: 200ms ease-in-out;
+    --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
+    --lightWhite: #cdcccc;
 }
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 
-    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 
-    'Helvetica Neue', sans-serif;
+    /* font-family: sans-serif; */
+    font-family: 'Nunito', sans-serif;
 }
 
+body {
+    overflow-x: hidden;
+}
 body::-webkit-scrollbar {
     display: none;
 }
 
-.topNav {
-    height: 48px;
+.header {
     background: #000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 5000;
-}
-.topNavLogoImg {
-    width: 35px;
-}
-
-.topNavRight {
-    display: flex;
-}
-
-
-.topNavMenuToggleBtn {
-    width: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-    cursor: pointer;
-    transition: 200ms ease all;
-}
-.topNavMenuToggleBar {
-    height: 2.5px;
-    width: 100%;
-    background-color: var(--yellowGreen);
-    border-radius: 10px;
-    transition: 200ms;
-    transition: 200ms ease all;
-}
-.topNavMenuToggleBtnActive .bar1 {
-    transform: rotate(-45deg) translate(-8px);
-    /* transform-origin: right; */
-    transition: 200ms ease all;
-}
-.topNavMenuToggleBtnActive .bar2 {
-    transform: rotate(45deg) translateX(-9px);
-    /* transform-origin: left; */
-    /* transition: 200ms ease all; */
-} 
-
-
-
-
-
-.topNavMenu {
-    position: absolute;
-    top: 48px;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #000;
-    top: -100vh;
-    transition: 200ms ease-in-out all;
-    z-index: 1;
-
-}
-.showTopNavMenu {
-    top: 48px;
-}
-.topNavMenuItems {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-.topNavMenuItem {
-    text-decoration: none;
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 550;
-    font-size: 40px;
-}
-
-
-
-
-.hero {
-    height: 100vh;
-    background: #000;
-    padding-top: 48px;
     padding: 20px;
-    padding-top: 60px;
-}
-.heroImg {
-    width: 100%;
-    max-width: 300px;
-    margin: auto;
-    display: block;
+    min-height: 100vh;
 }
 
-.heroTextBox {
-    margin-top: 40px;
+
+/* TOP NAV STARTS HERE  */
+
+.topNav {
+    position: relative;
+    height: auto;
+    border: 1px solid rgb(57, 57, 57);
+    background: #ffffff19;
+    border-radius: 7px;
+    height: 48px;
     width: 100%;
     max-width: 700px;
     margin: auto;
+    overflow: hidden;
+    transition: 200ms ease all;
 }
-.heroTextBox h1 {
+.topNavActive {
+    height: 250px;
+}
+
+.topNavContent {
+    position: relative;
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    position: relative;
+}
+.topNavLogo {
+    display: block;
+}
+.topNavLogoImg {
+    width: 30px;
+    display: block;
+}
+
+.topNavItems {
+    position: absolute;
+    top: 48px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+.topNavItem {
+    text-decoration: none;
+    color: var(--lightWhite);
+    padding: 10px;
+}
+.topNavItem:hover {
     color: #fff;
-    font-size: 40px;
-    text-align: center;
 }
-.heroTextBox h1 span {
-    color: #4b87f4;
+
+.topNavToggleBtn {
+    width: 25px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+.topNavToggleBtn span {
+    border-block-end-width: 25px;
+    height: 2.5px;
+    background: var(--lightWhite);
+    display: block;
+    border-radius: 9999px;
+    position: relative;
+    transform-origin: left center;
+    transition: opacity var(--animation-timing), width var(--animation-timing),
+    rotate var(--animation-timing), translate var(--animation-timing),
+    background-color var(--animation-timing);
+}
+.topNavToggleBtnActive {
+    transform: translateX(3px) translateY(5px);
+}
+.topNavToggleBtnActive .bar2{
+    display: none;
+    
+}
+.topNavToggleBtnActive .bar1{
+    rotate: 45deg;
+    width: var(--x-width);
+    translate: 0 calc(var(--bar-height) / -.999999);
+}
+.topNavToggleBtnActive .bar3{
+    rotate: -45deg;
+    width: var(--x-width);
+    translate: 0 calc(var(--bar-height) / 3);
 }
 
 
-@media only screen and (min-width:760px) {
-    .hero h1 {
-        font-size: 60px;
+
+/* INTRO STARTS HERE  */
+
+.introBox {
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.profile {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profileImg {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.profileTextBox {
+    padding: 0;
+}
+.profileTextBox h1 {
+    font-size: 24px;
+    color: var(--lightWhite);
+}
+.profileTextBox p {
+    color: rgb(140, 139, 139);
+    font-size: 16px;
+    margin-top: 7px;
+}
+
+.introAbout {
+    color: var(--lightWhite);
+    margin-top: 30px;
+}
+.introAboutp {
+    font-size: 18px;
+}
+.previously, .currently {
+    margin-top: 20px;
+    font-size: 17px;
+}
+.previously span,
+.currently span {
+    font-weight: 550;
+}
+
+.building {
+    margin-top: 20px;
+    color: grey;
+    display: none;
+}
+.building a {
+    text-decoration: none;
+    color: rgb(23, 64, 179);
+}
+
+.introAboutCityImg {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
+
+@media only screen and (min-width: 760px) {
+
+    .profile {
+        padding: 0;
+    }
+    .profileImg {
+        width: 220px;
+        height: 220px;
+    }
+    .profileTextBox h1 {
+        font-size: 35px;
+    }
+    .profileTextBox p {
+        font-size: 22px;
+    }
+
+    .introAboutp {
+        font-size: 24px;
+    }
+
+    .previously, .currently {
+        font-size: 22pxpx;
+    }
+
+    .introAboutCityImg {
+        width: 100%;
+        height: 350px;
     }
 }
+
+
+.imgCredit {
+    font-size: 10px;
+    color: gray;
+}
+.imgCredit a {
+    text-decoration: none;
+    color: gray;
+}
+
+
 
 /* SKILLS SECTION STARTS HERE */
 
@@ -229,6 +325,8 @@ body::-webkit-scrollbar {
 }
 
 
+/* WORK SECTION STARTS HERE  */
+
 .workBox {
     background: #000;
     padding: 60px 20px;
@@ -239,7 +337,7 @@ body::-webkit-scrollbar {
     margin: auto;
 }
 .workBoxHeading h1 {
-    color: #fff;
+    color: var(--lightWhite);
     font-size: 60px;
 }
 
@@ -251,13 +349,13 @@ body::-webkit-scrollbar {
 .work {
     display: block;
     text-decoration: none;
-    color: #fff;
+    color: var(--lightWhite);
     margin-top: 60px;
     color: var(--yellowGreen);
     transition: 200ms;
 }
 .work:hover {
-    transform: translateX(30px);
+    transform: translateX(20px);
 }
 .work h1 {
     font-size: 40px;
@@ -266,7 +364,6 @@ body::-webkit-scrollbar {
     font-size: 20px;
     color: grey;
 }
-
 
 
 .worksTypesBox {
@@ -282,10 +379,11 @@ body::-webkit-scrollbar {
 .workType {
     padding: 20px;
     font-size: 20px;
-    color: aliceblue;
+    color: var(--lightWhite);
 }
 
 
+/* CONTACT SECTION STARTS HERE */
 
 .contactBox {
     padding: 40px 20px;
@@ -298,12 +396,12 @@ body::-webkit-scrollbar {
 }
 .contactBox h1 {
     font-size: 40px;
-    color: #fff;
+    color: var(--lightWhite);
 }
 .contactBox p {
     font-size: 22px;
     margin-top: 20px;
-    color: rgb(204, 201, 201);
+    color: var(--lightWhite);
 }
 
 .contactChannels {
@@ -323,7 +421,7 @@ body::-webkit-scrollbar {
     transition: 200ms;
 }
 .contactChannel:hover {
-    transform: translateX(50px);
+    transform: translateX(30px);
     text-decoration: solid underline;
 }
 
@@ -331,7 +429,7 @@ body::-webkit-scrollbar {
 footer {
     padding: 30px 20px;
     background: rgb(30, 30, 30);
-    color: #fff;
+    color: var(--lightWhite);
 }
 .footerContent {
     width: 100%;
