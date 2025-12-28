@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sujoy Biswas | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/profile/faviconGold.png">
+    <link rel="apple-touch-icon" href="assets/profile/faviconBlack.png">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+
+    <nav class="navbar desktop-nav">
+        <div class="nav-pill">
+            <div class="nav-backdrop"></div>
+
+            <button class="nav-item" onclick="switchTab('home')">Home</button>
+            <button class="nav-item" onclick="switchTab('apps')">Apps</button>
+            <button class="nav-item" onclick="switchTab('work')">Work</button>
+            <button class="nav-item" onclick="switchTab('wallpapers')">Wallpapers</button>
+            <button class="nav-item" onclick="switchTab('playlist')">Playlist</button>
+            <a href="https://medium.com/@sujoyonweb" target="_blank" class="nav-item">Blog</a>
+            <button class="nav-item" onclick="switchTab('contact')">Contact</button>
+        </div>
+    </nav>
+
+    <div class="mobile-toggle" id="mobile-toggle-btn" onclick="toggleMobileMenu()">
+        <ion-icon name="menu-outline" id="menu-icon"></ion-icon>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="menu-items">
+            <a onclick="switchTab('home')">Home</a>
+            <a onclick="switchTab('apps')">Apps</a>
+            <a onclick="switchTab('work')">Work</a>
+            <a onclick="switchTab('wallpapers')">Wallpapers</a>
+            <a onclick="switchTab('playlist')">Playlist</a>
+            <a href="https://medium.com/@sujoyonweb" target="_blank">Blog</a>
+            <a onclick="switchTab('contact')">Contact</a>
+        </div>
+    </div>
+
+    <main id="app" class="content-wrapper"></main>
+
+    <footer>
+        <div class="container footer-content">
+            <h2 class="radhe-text">राधे राधे</h2>
+            <div class="footer-icons" id="footer-socials"></div>
+            <p class="copyright">© 2026 Sujoy Biswas. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

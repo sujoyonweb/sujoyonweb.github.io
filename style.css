@@ -1,0 +1,226 @@
+/* --- CORE VARIABLES --- */
+:root {
+    --bg: #050505;
+    --card-bg: #121212;
+    --text: #ffffff;
+    --text-muted: #b0b0b0;
+    --accent: #FFD700;
+    --border: #2a2a2a;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --apple-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.6;
+    padding-top: 100px;
+    display: flex; flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+main { min-height: 85vh; width: 100%; }
+html { scrollbar-gutter: stable; }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+/* --- NAVIGATION (DESKTOP) --- */
+.navbar {
+    position: fixed; top: 20px; width: 100%; z-index: 1000;
+    display: flex; justify-content: center; pointer-events: none;
+}
+
+.nav-pill {
+    pointer-events: auto;
+    position: relative;
+    background: rgba(20, 20, 20, 0.9);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    padding: 5px; /* Space for the pill to move inside */
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.08);
+    display: inline-flex; /* Ensures tighter fit */
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* THE SLIDING BACKDROP */
+.nav-backdrop {
+    position: absolute;
+    height: calc(100% - 10px); /* Fit within padding */
+    top: 5px; left: 0;
+    background: #2a2a2a; /* Dark Grey Pill */
+    border-radius: 30px;
+    z-index: 0; /* Behind Text */
+    transition: all 0.35s var(--apple-ease);
+    opacity: 0; /* JS turns this on */
+}
+
+.nav-item {
+    position: relative; z-index: 1; /* Above Pill */
+    background: transparent !important; border: none; 
+    color: var(--text-muted);
+    padding: 10px 24px; 
+    border-radius: 30px; cursor: pointer;
+    font-size: 0.9rem; font-weight: 600; 
+    transition: color 0.3s ease;
+    text-decoration: none; 
+    display: block;
+    font-family: var(--font);
+}
+
+.nav-item:hover { color: #fff; }
+.nav-item.active { color: #fff; }
+
+/* OPTIONAL: Keep the dot if you like it, or remove lines 78-83 to just use the pill */
+.nav-item.active::after { 
+    content: '•'; color: var(--accent); margin-left: 6px; 
+    font-size: 1.2rem; line-height: 0; position:relative; top: 1px;
+}
+
+/* --- MOBILE TOGGLE --- */
+.mobile-toggle {
+    pointer-events: auto; display: none;
+    position: fixed; bottom: 30px; right: 30px;
+    background: #1a1a1a; color: #fff; 
+    width: 60px; height: 60px; border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; z-index: 3001; 
+    box-shadow: 0 5px 25px rgba(0,0,0,0.7);
+    border: 1px solid var(--border);
+    transition: transform 0.3s var(--apple-ease);
+}
+.mobile-toggle:active { transform: scale(0.9); }
+
+/* --- MOBILE MENU OVERLAY --- */
+.mobile-menu {
+    position: fixed; inset: 0; 
+    background: rgba(5, 5, 5, 0.98); 
+    backdrop-filter: blur(20px);
+    z-index: 3000;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s var(--apple-ease);
+}
+.mobile-menu.open { opacity: 1; pointer-events: auto; }
+
+.menu-items { 
+    display: flex; flex-direction: column; gap: 30px; text-align: center; 
+    transform: translateY(40px); transition: transform 0.5s var(--apple-ease);
+}
+.mobile-menu.open .menu-items { transform: translateY(0); }
+
+.mobile-menu a { font-size: 1.8rem; color: #fff; font-weight: 700; cursor: pointer; transition: color 0.2s; }
+.mobile-menu a:hover { color: var(--accent); }
+
+/* --- CRITICAL: FORCE HIDE MOBILE ON DESKTOP --- */
+@media (min-width: 769px) {
+    .mobile-toggle, .mobile-menu { display: none !important; }
+}
+
+/* --- ANIMATION --- */
+.content-wrapper {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s var(--apple-ease), transform 0.8s var(--apple-ease);
+    will-change: opacity, transform;
+}
+.content-wrapper.show { opacity: 1; transform: translateY(0); }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .desktop-nav { display: none !important; }
+    .mobile-toggle { display: flex !important; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+    h1 { font-size: 2.2rem; }
+    .container { padding: 0 25px !important; }
+    .contact-card { width: 100% !important; flex: none !important; max-width: none !important; }
+    .wall-item { height: 220px; }
+}
+
+/* --- UTILS --- */
+.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+.section-padding { padding-bottom: 80px; }
+.spacer { height: 100px; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
+
+/* --- HEADERS --- */
+.section-header {
+    border-left: 4px solid var(--accent);
+    padding-left: 20px; margin-bottom: 40px;
+    display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+}
+.section-title { font-size: 1.8rem; font-weight: 700; line-height: 1.2; margin-bottom: 5px; color: #fff; }
+.section-subtitle { color: var(--text-muted); font-size: 1rem; margin: 0; line-height: 1.4; }
+
+/* --- HERO --- */
+.hero { text-align: center; padding: 60px 0 40px; }
+.profile-img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid #222; margin-bottom: 25px; background: #1a1a1a; }
+.hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
+.role { color: var(--accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; }
+.bio { max-width: 600px; margin: 0 auto 30px; color: #ccc; font-size: 1.1rem; }
+.skills span { display: inline-block; background: #1a1a1a; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; border: 1px solid #333; margin: 4px; color: #bbb; }
+
+/* --- CARDS --- */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); gap: 30px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+
+.card { 
+    background: var(--card-bg); border-radius: 18px; overflow: hidden; 
+    border: 1px solid var(--border); transition: transform 0.4s var(--apple-ease), box-shadow 0.4s var(--apple-ease);
+    display: flex; flex-direction: column; text-decoration: none; color: var(--text); height: 100%;
+}
+.card:hover { transform: translateY(-8px); border-color: #444; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+.card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #1a1a1a; display: block; }
+.card-body { padding: 25px; flex-grow: 1; text-align: left; }
+.card h3 { font-size: 1.3rem; margin-bottom: 10px; font-weight: 700; }
+.card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+
+/* --- CONTACT --- */
+.contact-grid { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 40px; justify-content: flex-start; }
+.contact-card { 
+    background: #111; padding: 50px 20px; border-radius: 18px; text-align: center; 
+    border: 1px solid var(--border); transition: 0.3s; display: flex; flex-direction: column; 
+    align-items: center; justify-content: center; text-decoration: none;
+    flex: 1 1 200px; max-width: 235px; min-width: 180px;
+}
+.contact-card:hover { background: #1a1a1a; transform: translateY(-5px); border-color: #444; }
+.contact-card ion-icon { font-size: 2.5rem; margin-bottom: 15px; color: #fff; }
+.contact-card span { display: block; font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+
+/* --- TIMELINE --- */
+.timeline { border-left: 2px solid #222; margin-left: 10px; padding-left: 40px; text-align: left; display: flex; flex-direction: column; }
+.timeline-item { position: relative; margin-bottom: 50px; }
+.timeline-item::before { content: ''; position: absolute; left: -46px; top: 5px; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+.t-year { color: var(--accent); font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: block; }
+
+/* --- WALLPAPERS & PLAYLIST --- */
+.wall-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+.wall-item { display: block; height: 320px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #1a1a1a; }
+.wall-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; display: block; }
+.wall-item:hover img { transform: scale(1.05); opacity: 0.9; }
+.ext-links a { display: inline-block; background: #1a1a1a; color: #ccc; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border); margin-left: 5px; }
+
+.pill-tabs { display: flex; gap: 10px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 5px; }
+.pill-btn { background: #1a1a1a; border: 1px solid var(--border); color: var(--text-muted); padding: 8px 24px; border-radius: 24px; cursor: pointer; white-space: nowrap; transition: 0.3s; }
+.pill-btn.active, .pill-btn:hover { background: #fff; color: #000; border-color: #fff; }
+.song-row { display: flex; justify-content: space-between; padding: 20px; border-bottom: 1px solid #222; align-items: center; transition: 0.2s; cursor: pointer; }
+.song-row:hover { background: #111; padding-left: 25px; }
+
+/* --- FOOTER --- */
+footer { 
+    margin-top: auto; padding: 100px 0 60px; background: #000; text-align: center; border-top: 1px solid #111; 
+    opacity: 0; pointer-events: none; transition: opacity 0.8s var(--apple-ease);
+}
+footer.visible { opacity: 1; pointer-events: auto; }
+
+.radhe-text { color: var(--accent); font-size: 2.5rem; font-weight: 800; margin-bottom: 30px; letter-spacing: 1px; }
+.footer-icons a { color: #888; font-size: 1.6rem; margin: 0 15px; transition: 0.3s; }
+.footer-icons a:hover { color: #fff; }
+.copyright { color: #444; font-size: 0.85rem; margin-top: 30px; }
